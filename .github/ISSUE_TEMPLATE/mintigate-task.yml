@@ -1,0 +1,70 @@
+name: Guest task
+description: Ask for one small change to one of your authorised public repositories. The result, including the patch, is posted on this issue.
+title: "Guest task: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read the guide (README.md of this repository) first. Only invited guests can use this form, on the repositories they were authorised for. Nothing you write here is executed; the form is read as data.
+
+        Do not put any secret, token, password or private information in this issue: it is public, and so is the result.
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      description: The public GitHub repository to change, as owner/name.
+      placeholder: owner/name
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Branch
+      description: The branch to start from. Its current head is used.
+      value: main
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Optional. The full 40-character commit you expect the branch head to be; the request is refused if the branch has moved.
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What should change, in plain words (2,000 characters at most). Describe a change to make, not a review.
+    validations:
+      required: true
+  - type: textarea
+    id: files
+    attributes:
+      label: Files to change
+      description: One path per line, relative to the repository root. Only these files are sent to the model and only these files may change. Files under knowledge/ or qa/ are not accepted.
+      placeholder: src/example.js
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: One criterion per line (10 at most, 500 characters each).
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Checks
+      description: The npm scripts of your repository to run on the patch, one name per line (5 at most), for example test and lint.
+      placeholder: test
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I understand that the result, including the patch, is posted publicly on this issue.
+          required: true
+        - label: This request contains no secret, credential or private information.
+          required: true
